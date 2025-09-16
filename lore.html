@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Organic ($ORG) - Lore</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'bonk-orange': '#FF7A00', 'bonk-yellow': '#FFE500' },
+          fontFamily: {
+            'comic': ['"Comic Neue"', 'cursive'],
+            'cartoon': ['"Luckiest Guy"', 'cursive']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts & libs -->
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- Shared styles (same as index) -->
+  <style>
+    :root{ --comic-black:#111; --site-orange:#FF7A00; }
+    .font-site-font2{ font-family:"Luckiest Guy","Comic Neue",cursive; }
+    .text-site-color2{ color:var(--site-orange); }
+    .text-site-color2-80{ color:rgba(255,122,0,.85); }
+    .comic-shadow{ -webkit-text-stroke:1.5px var(--comic-black); text-shadow:0 1px 0 var(--comic-black); }
+    .comic-shadow-small{ -webkit-text-stroke:1px var(--comic-black); text-shadow:0 .75px 0 var(--comic-black); }
+    .border-comic-black{ border-color:var(--comic-black)!important; }
+    .contract-shadow{ box-shadow:0 3px 0 var(--comic-black), 0 10px 18px rgba(0,0,0,.08); }
+    .site-copy-button{ background:#fff; border:3px solid var(--comic-black); border-radius:.5rem; box-shadow:0 3px 0 var(--comic-black); transition:transform .08s ease, box-shadow .08s ease, background .15s ease; }
+    .site-copy-button:hover{ transform:translateY(-1px); }
+    .site-copy-button:active{ transform:translateY(1px); box-shadow:0 1px 0 var(--comic-black); }
+    @keyframes org-breathe-scale { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+    .breathe{ animation:org-breathe-scale 2.8s ease-in-out infinite; transform-origin:center; }
+    @media (prefers-reduced-motion:reduce){ .breathe{ animation:none; } }
+
+    /* side buttons nicer focus/hover */
+    .chap-btn{ box-shadow:0 2px 0 rgba(17,17,17,.25); }
+    .chap-btn:focus{ outline:3px solid rgba(255,229,0,.6); outline-offset:2px; }
+
+    /* Paper note style for chapter 4 text */
+    .paper-note{ background:linear-gradient(#fffdf6,#fffceb); border:4px solid var(--comic-black); padding:2rem; border-radius:1rem; box-shadow:0 12px 30px rgba(0,0,0,.12); position:relative; max-width:40rem; }
+    .paper-note:before{ content:''; position:absolute; top:-12px; left:28px; width:68px; height:18px; background:linear-gradient(#eee,#ddd); transform:rotate(-3deg); border-radius:4px; box-shadow:0 3px 0 rgba(0,0,0,.06); }
+    .paper-note p{ margin-bottom:0.75rem; color: #333; font-size:1.05rem; line-height:1.6; }
+    @media (max-width:768px){ .paper-note{ padding:1.25rem; } }
+  </style>
+</head>
+
+<body class="bg-white font-comic text-gray-800 overflow-x-hidden min-h-screen flex flex-col">
+
+<!-- NAV (same as index) -->
+<nav class="bg-bonk-orange py-4 sticky top-0 z-50 shadow-md backdrop-blur-sm bg-opacity-90">
+  <div class="container mx-auto px-2 md:px-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="index.html" aria-label="Home">
+        <img src="assets/Logo.png" alt="Organic Logo"
+             class="h-12 md:h-14 lg:h-16 w-auto select-none -ml-2 md:-ml-3 breathe will-change-transform"
+             draggable="false">
+      </a>
+    </div>
+
+    <div class="hidden md:flex space-x-8">
+      <a href="index.html#about"   class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">History</a>
+      <a href="lore.html" class="bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Lore</a>
+      <a href="index.html#buy"     class="bg-white/10 hover:bg_white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">How to Buy</a>
+      <a href="index.html#memes"   class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Memes</a>
+      <a href="index.html#roadmap" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Roadmap</a>
+      <a href="index.html#faq"     class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">FAQ</a>
+    </div>
+
+    <div class="flex space-x-4">
+      <a href="https://x.com/Organic_bonk" target="_blank" rel="noopener noreferrer" class="bg-bonk-yellow rounded-full p-2 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300">
+        <i data-feather="twitter" class="text-bonk-orange hover:rotate-12 transition-transform duration-300"></i>
+      </a>
+      <a href="https://discord.gg/Npc5Gx6f2w" target="_blank" rel="noopener noreferrer" class="bg-bonk-yellow rounded-full p-2 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300">
+        <i data-feather="message-circle" class="text-bonk-orange hover:rotate-12 transition-transform duration-300"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- RIGHT SIDE CHAPTER NAV -->
+<div id="side-chapters" class="hidden md:flex fixed right-6 top-1/2 z-50 -translate-y-1/2">
+  <div id="side-chapters-inner" class="flex flex-col items-center gap-3">
+    <!-- mini title above buttons (desktop) -->
+    <div class="hidden md:flex flex-col items-center mb-2">
+      <span class="text-xs font-bold text-gray-600 tracking-wider">"Organic" Chapters</span>
+    </div>
+    <!-- buttons injected -->
+  </div>
+</div>
+
+<!-- MAIN (chapters mirror index section styles) -->
+<main id="lore-main" class="relative flex-1 z-10">
+
+  <!-- LORE INTRO (separate from chapters) -->
+  <section id="lore-intro" class="min-h-[50vh] flex items-center justify-center py-10 md:py-14 bg-gradient-to-r from-bonk-orange to-bonk-yellow relative">
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-white mix-blend-overlay"></div>
+      <div class="absolute bottom-1/3 right-1/3 w-48 h-48 rounded-full bg-white mix-blend-overlay"></div>
+    </div>
+
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h1 class="font-cartoon text-5xl md:text-7xl lg:text-8xl text-white mb-4 comic-shadow tracking-wide">The Organic Lore</h1>
+      <p class="text-2xl md:text-4xl lg:text-5xl text-white/95 max-w-3xl mx-auto">The story of $ORG told in chapters.</p>
+      <p class="mt-6 text-lg md:text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto">From the chaos of launch to the strength of community — read how a joke became a movement. Scroll or use the right-side nav to jump between chapters.</p>
+    </div>
+  </section>
+
+  <!-- CHAPTER 1 — moved to plain background for readability -->
+  <section id="chapter-1" class="chapter min-h-screen flex items-center justify-center bg-white py-16 md:py-24 scroll-mt-24">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-8">
+        <h2 class="font-cartoon text-4xl md:text-6xl lg:text-7xl text-bonk-orange mb-2 comic-shadow uppercase">CHAPTER 1 · LAUNCH SPARKS</h2>
+        <p class="italic text-sm md:text-base text-gray-600">The accidental birth and the first day that changed everything.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+        <div class="flex justify-center md:justify-start">
+          <article class="paper-note max-w-xl">
+            <p>August 11th, 2025. What started as a joke on LetsBonk turned into the spark of something bigger. A simple launch, meant as a sarcastic test, was thrown into chaos when my wallet got flagged as if I was the developer of Graphite Protocol. Suddenly, bots and snipers flooded in. The chart went wild. People panicked, some reached out in anger, others in confusion.</p>
+            <p>That was the moment I realized: I wasn’t the one to blame, but I also couldn’t just walk away. Everyone was losing. So, I stepped up. I made it clear: I am not the dev of GP. I am here, with you. And from that very day, $ORG became more than just a meme—it became a movement.</p>
+          </article>
+        </div>
+
+        <div class="flex justify-center md:justify-end">
+          <img src="assets/gen1_to_moon.png" alt="Gen1 to Moon" class="w-full h-auto max-h-[360px] md:max-h-[520px] lg:max-h-[640px] object-contain block">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 2 — light gray background -->
+  <section id="chapter-2" class="chapter min-h-screen flex items-center justify-center bg-gray-100 py-16 md:py-24 scroll-mt-24">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-8">
+        <h2 class="font-cartoon text-4xl md:text-6xl lg:text-7xl text-bonk-orange mb-2 comic-shadow uppercase">CHAPTER 2 · TAKEOVER & THE SECOND PUMP</h2>
+        <p class="italic text-sm md:text-base text-gray-600">How the community took control and we rode another wave.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+        <div class="flex justify-center md:justify-start">
+          <article class="paper-note max-w-xl">
+            <p>When the dust settled, the community asked me to lead. I even paid for the community takeover on DEXScreener to make it official. What followed was our second big pump—a moment of pure energy. But once again, the snipers struck, selling heavily and dragging us down.</p>
+            <p>Instead of quitting, we pushed on. We weren’t here for quick flips or artificial hype. We were here to grow organically.</p>
+          </article>
+        </div>
+
+        <div class="flex justify-center md:justify-end">
+          <img src="assets/takeover.png" alt="Takeover" class="w-full h-auto max-h-[360px] md:max-h-[520px] lg:max-h-[640px] object-contain block">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 3 — white background -->
+  <section id="chapter-3" class="chapter min-h-screen flex items-center justify-center bg-white py-16 md:py-24 scroll-mt-24">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-8">
+        <h2 class="font-cartoon text-4xl md:text-6xl lg:text-7xl text-bonk-orange mb-2 comic-shadow uppercase">CHAPTER 3 · BUILDING FROM THE LOWS</h2>
+        <p class="italic text-sm md:text-base text-gray-600">Persistence, presence, and the slow work of rebuilding.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+        <div class="flex justify-center md:justify-start">
+          <article class="paper-note max-w-xl">
+            <p>For almost a month, the chart drifted into the bottom range. Many projects would have died there, but not us. I kept buying, kept engaging, kept searching for ways to bring real value. I even showed up at in-real-life crypto events, talking about $ORG, proving that the story wasn’t over.</p>
+            <p>Through persistence, memes, and constant transparency, the flame stayed alive. What started as sarcasm slowly transformed into resilience.</p>
+          </article>
+        </div>
+
+        <div class="flex justify-center md:justify-end">
+          <img src="assets/building.png" alt="Building" class="w-full h-auto max-h-[360px] md:max-h-[520px] lg:max-h-[640px] object-contain block">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 4 — orange tint background -->
+  <section id="chapter-4" class="chapter min-h-screen flex items-center justify-center bg-bonk-orange bg-opacity-10 py-16 md:py-24 scroll-mt-24">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-8">
+        <h2 class="font-cartoon text-4xl md:text-6xl lg:text-7xl text-bonk-orange mb-2 comic-shadow uppercase">CHAPTER 4 · THE RETURN OF THE COMMUNITY</h2>
+        <p class="italic text-sm md:text-base text-gray-600">A comeback fueled by old friends and new energy.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+        <!-- left: paper note with the chapter text (narrower to sit closer to image) -->
+        <div class="flex justify-center md:justify-start">
+          <article class="paper-note max-w-xl">
+            <p>Then came the comeback. Old members returned, new faces joined, and even the Chinese community rallied with us. Energy shifted. Hope resurfaced. We weren’t just surviving anymore—we were building again.</p>
+            <p>This new website you’re reading is proof of that. A clear structure, an evolving roadmap, and a vision that extends far beyond memes.</p>
+          </article>
+        </div>
+
+        <!-- right: comeback image (no frame, full within its column) -->
+        <div class="flex justify-center md:justify-end">
+          <img src="assets/comeback.png" alt="Community Comeback" class="w-full h-auto max-h-[360px] md:max-h-[520px] lg:max-h-[640px] object-contain block">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 5 — white background -->
+  <section id="chapter-5" class="chapter min-h-screen flex items-center justify-center bg-white py-16 md:py-24 scroll-mt-24">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-8">
+        <h2 class="font-cartoon text-4xl md:text-6xl lg:text-7xl text-bonk-orange mb-2 comic-shadow uppercase">CHAPTER 5 · WRITING THE ENDING TOGETHER</h2>
+        <p class="italic text-sm md:text-base text-gray-600">How the community writes the final chapter.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+        <div class="flex justify-center md:justify-start">
+          <article class="paper-note max-w-xl">
+            <p>$ORG is no longer my experiment. It’s no longer “Cisco’s coin.” It’s a community project where anyone can contribute. If you want to build, build. If you want to create memes, create. If you have ideas, the community decides together.</p>
+            <p>We’re not against KOLs or listings, but we won’t fake it. We don’t want bots or inorganic hype. The community must win first. Growth comes from within.</p>
+            <p>This lore doesn’t end with me—it ends with us. Together, we will write the final chapter of $ORG. From the chaos of day one to the heights we aim to reach in this next alt-season, the story remains the same: Organic from here.</p>
+          </article>
+        </div>
+
+        <div class="flex justify-center md:justify-end">
+          <video src="assets/avengers_vid.mp4" class="w-full h-auto max-h-[360px] md:max-h-[520px] lg:max-h-[640px] object-contain block rounded-md" controls playsinline muted loop preload="metadata" aria-label="Avengers video"></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER (same as index) -->
+<footer class="bg-bonk-orange text-white py-12 mt-auto">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="font-cartoon text-3xl md:text-4xl text-center text-bonk-orange mb-6 comic-shadow">Reach Us Anytime</h2>
+    <p class="mb-6">We're transparent and always online</p>
+
+    <div class="flex justify-center space-x-8 mb-6">
+      <a href="https://x.com/Organic_bonk" target="_blank" rel="noopener noreferrer" class="bg-bonk-yellow rounded-full p-4 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300 group">
+        <i data-feather="twitter" class="w-8 h-8 text-bonk-orange group-hover:rotate-12 transition-transform duration-300"></i>
+      </a>
+      <a href="https://discord.gg/Npc5Gx6f2w" target="_blank" rel="noopener noreferrer" class="bg-bonk-yellow rounded-full p-4 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300 group">
+        <i data-feather="message-circle" class="w-8 h-8 text-bonk-orange group-hover:rotate-12 transition-transform duration-300"></i>
+      </a>
+      <a href="mailto:" class="bg-bonk-yellow rounded-full p-4 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300 group">
+        <i data-feather="mail" class="w-8 h-8 text-bonk-orange group-hover:rotate-12 transition-transform duration-300"></i>
+      </a>
+    </div>
+
+    <div>
+      <p>$ORG - The People's Meme Token</p>
+      <p class="text-sm opacity-80 mt-4">Contract: DuXugm4oTXrGDopgxgudyhboaf6uUg1GVbJ6jk6qbonk</p>
+      <p class="text-sm opacity-80 mt-2">This is a meme token with no intrinsic value or expectation of financial return. For entertainment purposes only.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    AOS.init({ duration:800, offset:100, easing:'ease-out-back', once:true });
+    feather.replace();
+
+    const nav = document.querySelector('nav');
+    const titleBar = document.getElementById('lore-title-bar');
+    const chapters = Array.from(document.querySelectorAll('.chapter'));
+    const sideInner = document.getElementById('side-chapters-inner');
+
+    // Keep chapter headings from hiding under sticky nav and title bar
+    function updateScrollMargin(){
+      const navH = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+      const titleH = titleBar ? Math.ceil(titleBar.getBoundingClientRect().height) : 0;
+      const offset = navH + titleH + 18; // buffer so headings are visible
+
+      // position the title bar immediately below the nav
+      if (titleBar) titleBar.style.top = navH + 'px';
+
+      // add top padding to the main content so fixed title doesn't cover it on small screens
+      const main = document.getElementById('lore-main');
+      if (main) main.style.paddingTop = (titleH + 8) + 'px';
+
+      chapters.forEach(ch => ch.style.scrollMarginTop = offset + 'px');
+    }
+    updateScrollMargin();
+    window.addEventListener('resize', updateScrollMargin);
+
+    // Build right-side buttons
+    chapters.forEach((ch, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chap-btn w-10 h-10 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center font-bold text-gray-800 hover:shadow-md focus:outline-none transition aria-[current=page]:bg-bonk-orange aria-[current=page]:text-white aria-[current=page]:border-bonk-orange';
+      btn.textContent = (i+1).toString();
+      btn.setAttribute('aria-label', ch.querySelector('h2')?.textContent?.trim() || `Chapter ${i+1}`);
+      btn.dataset.target = ch.id;
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        document.getElementById(btn.dataset.target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', '#' + btn.dataset.target);
+      });
+      sideInner.appendChild(btn);
+    });
+    const sideButtons = Array.from(sideInner.children);
+
+    // Active state on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ setActive(entry.target.id); }
+      });
+    }, { threshold: 0.55 });
+
+    chapters.forEach(ch => io.observe(ch));
+
+    function setActive(id){
+      sideButtons.forEach(b=>{
+        const on = b.dataset.target === id;
+        if (on) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current');
+      });
+      if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+    }
+
+    // On load go to hash if any
+    if (location.hash) {
+      const el = document.getElementById(location.hash.slice(1));
+      if (el) setTimeout(()=> el.scrollIntoView({ behavior:'smooth', block:'start' }), 80);
+    } else if (chapters[0]) {
+      setActive(chapters[0].id);
+    }
+
+    // Keyboard nav on the side
+    sideInner.addEventListener('keydown', (e)=>{
+      const idx = sideButtons.indexOf(document.activeElement);
+      if (idx < 0) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { sideButtons[Math.min(idx+1, sideButtons.length-1)].focus(); }
+      if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  { sideButtons[Math.max(idx-1, 0)].focus(); }
+    });
+
+    // Back/forward
+    window.addEventListener('popstate', ()=>{
+      if (location.hash) {
+        const el = document.getElementById(location.hash.slice(1));
+        if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
