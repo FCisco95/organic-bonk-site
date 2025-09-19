@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — Organic</title>
+  <link rel="icon" type="image/png" href="assets/pfp.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <style>
+    :root{ --site-orange:#FF7A00; --comic-black:#111 }
+    body{ font-family: 'Comic Neue', cursive; background:#fff; color:#111 }
+    .container{ max-width:1100px; margin:0 auto; padding:1rem }
+  </style>
+</head>
+<body>
+  <header class="bg-bonk-orange py-6">
+    <div class="container text-center">
+      <h1 style="font-family: 'Luckiest Guy', cursive; font-size:2.4rem; color:white; -webkit-text-stroke:1.5px var(--comic-black);">Contact</h1>
+    </div>
+  </header>
+
+  <main class="container mt-8">
+    <div class="bg-white border-4 border-comic-black rounded-xl p-6">
+      <h2 class="text-2xl font-bold mb-3">Reach the Organic Community</h2>
+      <p class="mb-4">For community questions, collabs or support email us at:</p>
+
+      <p class="mb-6"><a href="mailto:organic_community@proton.me" class="inline-block bg-bonk-orange text-white py-3 px-5 rounded-full border-4 border-comic-black">organic_community@proton.me</a></p>
+
+      <form action="mailto:organic_community@proton.me" method="post" enctype="text/plain">
+        <label class="block mb-2">Your name</label>
+        <input name="name" class="w-full p-3 border border-gray-300 rounded mb-4" placeholder="Your name">
+
+        <label class="block mb-2">Your message</label>
+        <textarea name="message" class="w-full p-3 border border-gray-300 rounded mb-4" rows="6" placeholder="Write your message..."></textarea>
+
+        <button type="submit" class="bg-bonk-orange text-white py-3 px-5 rounded-full border-4 border-comic-black">Send Email</button>
+      </form>
+    </div>
+
+    <div class="mt-6 text-sm text-gray-600">Alternatively, join our Discord or X for community chat.</div>
+
+    <div class="mt-8">
+      <a href="index.html" class="underline">Back to Home</a>
+    </div>
+  </main>
+</body>
+</html>
