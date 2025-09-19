@@ -67,5 +67,3 @@ Credits
 Built with Tailwind CSS (CDN), AOS for animations, and Feather icons.
 
 ---
-
-If you'd like, I can also add a short CONTRIBUTING.md, add a license, or wire a GitHub Action to preview site changes automatically.
