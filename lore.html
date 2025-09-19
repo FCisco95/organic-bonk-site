@@ -59,22 +59,22 @@
 
 <body class="bg-white font-comic text-gray-800 overflow-x-hidden min-h-screen flex flex-col">
 
-<!-- NAV (same as index) -->
+<!-- NAV (canonical shared nav) -->
 <nav class="bg-bonk-orange py-4 sticky top-0 z-50 shadow-md backdrop-blur-sm bg-opacity-90">
   <div class="container mx-auto px-2 md:px-4 flex justify-between items-center">
     <div class="flex items-center">
       <a href="index.html" aria-label="Home">
-        <img src="assets/Logo.png" alt="Organic Logo"
-             class="h-12 md:h-14 lg:h-16 w-auto select-none -ml-2 md:-ml-3 breathe will-change-transform"
-             draggable="false">
+        <img src="assets/Logo.png" alt="Organic Logo" class="h-12 md:h-14 lg:h-16 w-auto select-none -ml-2 md:-ml-3 breathe will-change-transform" draggable="false">
       </a>
     </div>
 
     <div class="hidden md:flex space-x-8">
       <a href="index.html#about"   class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">History</a>
-      <a href="lore.html" class="bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Lore</a>
-      <a href="index.html#buy"     class="bg-white/10 hover:bg_white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">How to Buy</a>
+      <a href="lore.html"          class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Lore</a>
+      <a href="index.html#buy"     class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">How to Buy</a>
       <a href="index.html#memes"   class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Memes</a>
+      <a href="memefest.html"      class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Meme Fest</a>
+      <a href="contact.html"      class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Contact</a>
       <a href="index.html#roadmap" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Roadmap</a>
       <a href="index.html#faq"     class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">FAQ</a>
     </div>
@@ -253,7 +253,7 @@
       <a href="https://discord.gg/Npc5Gx6f2w" target="_blank" rel="noopener noreferrer" class="bg-bonk-yellow rounded-full p-4 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300 group">
         <i data-feather="message-circle" class="w-8 h-8 text-bonk-orange group-hover:rotate-12 transition-transform duration-300"></i>
       </a>
-      <a href="mailto:" class="bg-bonk-yellow rounded-full p-4 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300 group">
+      <a href="mailto:organic_community@proton.me" class="bg-bonk-yellow rounded-full p-4 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300 group">
         <i data-feather="mail" class="w-8 h-8 text-bonk-orange group-hover:rotate-12 transition-transform duration-300"></i>
       </a>
     </div>
@@ -351,6 +351,18 @@
         const el = document.getElementById(location.hash.slice(1));
         if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
       }
+    });
+
+    // Smooth scroll for nav/anchors: only intercept when the target exists on this page
+    document.querySelectorAll('a[href*="#"]').forEach(anchor=>{
+      anchor.addEventListener('click', e=>{
+        const href = anchor.getAttribute('href') || '';
+        if (!href.includes('#')) return;
+        const hash = href.split('#').pop();
+        if (!hash) return;
+        const target = document.getElementById(hash);
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
+      });
     });
   });
 </script>
