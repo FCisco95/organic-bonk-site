@@ -301,6 +301,15 @@
 </footer>
 
 <!-- SCRIPTS -->
+<!-- Background music + mute toggle -->
+<audio id="lore-bg-audio" src="assets/Organic Bonk - We back.mp3" preload="auto" loop></audio>
+
+<button id="lore-mute-toggle" aria-pressed="false" aria-label="Mute background music" title="Mute" class="fixed bottom-6 left-6 z-50 bg-white border-2 border-gray-900 rounded-full w-14 h-14 flex items-center justify-center shadow-lg">
+  <svg id="lore-mute-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+    <path id="lore-mute-cross" d="M19 9l-4 4M15 9l4 4" stroke="#FF7A00" display="none"></path>
+  </svg>
+</button>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     AOS.init({ duration:800, offset:100, easing:'ease-out-back', once:true });
@@ -398,6 +407,46 @@
         if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
       });
     });
+
+    // Background music control
+    (function(){
+      const audio = document.getElementById('lore-bg-audio');
+      const btn = document.getElementById('lore-mute-toggle');
+      const iconCross = document.getElementById('lore-mute-cross');
+      const storageKey = 'lore_music_muted_v1';
+
+      // Read stored preference
+      let muted = localStorage.getItem(storageKey) === '1';
+      audio.muted = muted;
+      btn.setAttribute('aria-pressed', String(muted));
+      iconCross.style.display = muted ? 'block' : 'none';
+      btn.title = muted ? 'Unmute' : 'Mute';
+
+      // Try to play (may be blocked by autoplay policies). ignore errors.
+      function tryPlay(){
+        if (!audio) return;
+        audio.play().catch(()=>{
+          // Autoplay blocked: leave muted state as-is and let user start via button.
+        });
+      }
+
+      // Toggle handler
+      function toggle(){
+        muted = !muted;
+        audio.muted = muted;
+        localStorage.setItem(storageKey, muted ? '1' : '0');
+        btn.setAttribute('aria-pressed', String(muted));
+        iconCross.style.display = muted ? 'block' : 'none';
+        btn.title = muted ? 'Unmute' : 'Mute';
+        if (!muted) tryPlay();
+      }
+
+      btn.addEventListener('click', (e)=>{ e.preventDefault(); toggle(); });
+      btn.addEventListener('keydown', (e)=>{ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+
+      // If user hasn't explicitly muted and audio is not muted, attempt autoplay once DOM loaded
+      if (!muted) tryPlay();
+    })();
   });
 </script>
 </body>
