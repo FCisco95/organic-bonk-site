@@ -258,12 +258,13 @@
                 return;
               }
 
-              // Build X (Twitter) intent URL. X supports text and url query params.
-              const intentBase = 'https://x.com/intent/tweet';
+              // Build Twitter intent URL. Use twitter.com intent endpoint for wider compatibility.
+              const intentBase = 'https://twitter.com/intent/tweet';
               const params = new URLSearchParams({
                 text: text + ' ',
                 url: imageUrl,
-                hashtags: 'OrganicBonk'
+                hashtags: 'OrganicBonk',
+                via: 'Organic_bonk'
               });
               const intentUrl = intentBase + '?' + params.toString();
 
