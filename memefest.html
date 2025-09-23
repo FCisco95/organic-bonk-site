@@ -121,16 +121,67 @@
       <p class="text-sm text-gray-600 mt-4">If you want the old gallery view, return to <a href="index.html" class="underline">Home</a>.</p>
     </div>
 
-    <script>
+      <script>
       (function(){
-        const memes = [
-          { id: 'm1', title: 'Organic Avengers', img: 'assets/organic_avengers.png' },
-          { id: 'm2', title: 'Organic Star Wars', img: 'assets/organic_starwars.png' },
-          { id: 'm3', title: 'Madlad', img: 'assets/madlad.png' },
-          { id: 'm4', title: 'My Gen1', img: 'assets/My_gen1.png' },
-          { id: 'm5', title: 'LOLA', img: 'assets/LOLA.png' },
-          { id: 'm6', title: 'TAIYOVER', img: 'assets/TAIYOVER.png' }
+        // All files from the meme-fest folder (added automatically)
+        const files = [
+          '46d2b21c-3979-47aa-9eb0-3bf7f982fd2b.png',
+          'american_1.png',
+          'american_2.png',
+          'american_3.png',
+          'american_4.png',
+          'building.png',
+          'buy_org.png',
+          'chill_org.png',
+          'chinese-community.JPG',
+          'cooking.gif',
+          'diamond_hands.png',
+          'dinner_candles.png',
+          'FEA55714-16C5-4872-801E-75FE4EAAE2FD.png',
+          'fees_meme.png',
+          'fighting_snipers.png',
+          'G00EODVWEAA35WS.png',
+          'G00XM9MbwAAdlYw.png',
+          'G04o2VLWEAAoZ6A.png',
+          'G05oLamXQAAT-lq.png',
+          'G06-zCvWYAA5HhA.png',
+          'G0sGhsBXwAEFygo.png',
+          'G0vvtzGWUAE5Uii.png',
+          'G1QE1KkbQAQ1qsK.png',
+          'G1S3NhJWoAAjtZ5.png',
+          'G1TEY_XXIAAiZUF.png',
+          'G1U5LEVbQAM8rG2.png',
+          'girlfriend_meme.png',
+          'gm.png',
+          'gn.png',
+          'gn2.png',
+          'mac_organic.png',
+          'making_deal.jpg',
+          'mem.png',
+          'more_organic.png',
+          'oktoberfest.JPG',
+          'organic_future.png',
+          'organic_pill.jpg',
+          'orgmeme.png',
+          'org_china.png',
+          'org_night.png',
+          'org_squid.png',
+          'org_usd1.png',
+          'pooping_candles.png',
+          'tom_organic.png',
+          'trump_org.png',
+          'weights.png',
+          'wen_usd1.png',
+          'WGMI.png'
         ];
+
+        function titleFromName(name){
+          const noext = name.replace(/\.[^.]+$/, '');
+          const spaced = noext.replace(/[_\-]+/g,' ').replace(/\s+/g,' ').trim();
+          return spaced.replace(/\b\w/g, ch => ch.toUpperCase());
+        }
+
+        const memes = files.map((f, idx) => ({ id: 'mf_' + idx + '_' + f.replace(/[^a-zA-Z0-9]/g,'_'), title: titleFromName(f), img: 'meme-fest/' + f }));
 
         const feed = document.getElementById('meme-feed');
         const LS_KEY = 'organic_meme_likes_v1';
@@ -142,12 +193,12 @@
           const card = document.createElement('article');
           card.className = 'bg-white border border-gray-200 rounded-lg overflow-hidden';
           card.innerHTML = `
-            <div class="w-full bg-black flex items-center justify-center" style="min-height:220px;">
-              <img src="${m.img}" alt="${m.title}" class="w-full h-full object-contain" />
+            <div class="w-full bg-black flex items-center justify-center aspect-square">
+              <img src="${m.img}" alt="${m.title}" class="max-w-full max-h-full object-contain" />
             </div>
             <div class="p-4">
               <div class="flex items-center justify-between mb-2">
-                <div class="font-semibold">${m.title}</div>
+                <div class="font-semibold sr-only">${m.title}</div>
                 <div class="text-sm text-gray-500">@Organic</div>
               </div>
 
@@ -184,6 +235,46 @@
             const svg = btn.querySelector('svg');
             if(entry.liked) svg.setAttribute('fill', 'currentColor'); else svg.setAttribute('fill', 'none');
           });
+
+          // wire share button to open an X/Twitter intent with a boosting Org message
+          const shareBtn = card.querySelector('.share-btn');
+          if(shareBtn){
+            shareBtn.addEventListener('click', (e)=>{
+              e.preventDefault();
+              const siteOrigin = location.origin;
+              // Use absolute URL to the meme file so X can generate a preview
+              const imageUrl = siteOrigin + '/' + m.img.replace(/^\/+/, '');
+              const pageUrl = siteOrigin + '/' + 'memefest.html';
+              const text = `Boosting @Organic_bonk — ${m.title} \nCheck it out:`;
+
+              // Prefer Web Share API if available (mobile-friendly)
+              if(navigator.share){
+                navigator.share({
+                  title: `Boosting @Organic_bonk — ${m.title}`,
+                  text: `${text}`,
+                  url: imageUrl
+                }).catch(()=>{
+                  // ignore share errors
+                });
+                return;
+              }
+
+              // Build X (Twitter) intent URL. X supports text and url query params.
+              const intentBase = 'https://x.com/intent/tweet';
+              const params = new URLSearchParams({
+                text: text + ' ',
+                url: imageUrl,
+                hashtags: 'OrganicBonk'
+              });
+              const intentUrl = intentBase + '?' + params.toString();
+
+              // Open a small centered popup
+              const w = 700, h = 500;
+              const left = Math.max(0, (screen.width - w) / 2);
+              const top = Math.max(0, (screen.height - h) / 2);
+              window.open(intentUrl, 'share_window', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+            });
+          }
 
           return card;
         }
