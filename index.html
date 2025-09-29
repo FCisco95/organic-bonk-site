@@ -256,7 +256,22 @@
 
             <article id="tab-roles" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
               <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Roles you can take</h3>
-              <p class="text-lg">Developers, 2D and 3D artists, video editors, meme makers, growth hackers, translators, community managers, space hosts, researchers, stewards who help run votes and payouts.</p>
+              <p class="text-lg mb-4">Developers, 2D and 3D artists, video editors, meme makers, growth hackers, translators, community managers, space hosts, researchers, stewards who help run votes and payouts.</p>
+
+              <!-- Roles layout: left = details, right = button list -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                <div id="role-details" class="md:col-span-2 bg-gray-50 p-6 rounded-lg border border-gray-200 min-h-[220px]">
+                  <h4 id="role-title" class="font-bold text-xl text-bonk-orange mb-3">Select a role to learn more</h4>
+                  <p id="role-desc" class="text-base text-gray-800">Click any role on the right to view a short description and examples of tasks you can take.</p>
+                  <ul id="role-examples" class="mt-4 list-disc pl-6 text-sm text-gray-700"></ul>
+                </div>
+
+                <div class="md:col-span-1">
+                  <div id="role-list" class="space-y-2">
+                    <!-- Buttons injected by script for consistency -->
+                  </div>
+                </div>
+              </div>
             </article>
 
             <article id="tab-fair" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
@@ -900,5 +915,76 @@
       });
     });
   </script>
+    <script>
+      // Roles data and UI wiring for the Roles tab
+      (function(){
+        const roles = [
+          { id: 'role-dev', title: 'Developers', desc: 'Build the tools and integrations that help Organic scale.', examples: ['Frontend UI fixes and small components', 'Smart-contract helpers and scripts', 'Bots for moderation (ethical) and dashboards'] },
+          { id: 'role-artist', title: '2D / 3D Artists', desc: 'Create art packs, avatars, and assets that the community can remix.', examples: ['Meme illustrations', '3D avatars and skins', 'Banner designs and asset packs'] },
+          { id: 'role-video', title: 'Video Editors', desc: 'Turn memes and community moments into short, shareable clips.', examples: ['TikTok / short editorials', 'Clip compilations for socials', 'Promo teasers for events'] },
+          { id: 'role-meme', title: 'Meme Makers', desc: 'Generate and test meme concepts that resonate across rooms.', examples: ['Template creation', 'A/B meme posting experiments', 'Meme series and drops for campaigns'] },
+          { id: 'role-growth', title: 'Growth Hackers', desc: 'Design experiments that attract authentic users and measure retention.', examples: ['Community referral sprints', 'Partnership outreach', 'Growth-oriented A/B tests'] },
+          { id: 'role-trans', title: 'Translators', desc: 'Localize content and connect non-English rooms to Organic.', examples: ['Translate pinned guides', 'Curate community summaries', 'Moderate non-English channels'] },
+          { id: 'role-comm', title: 'Community Managers', desc: 'Keep the rooms healthy, onboard new members, and run events.', examples: ['Onboarding flows', 'Moderation and rules enforcement', 'Organize AMAs and spaces'] },
+          { id: 'role-space', title: 'Space Hosts', desc: 'Host audio rooms and live events that center the community.', examples: ['Weekly spaces with agenda', 'Invite builders and guests', 'Record and publish highlights'] },
+          { id: 'role-research', title: 'Researchers', desc: 'Find signals, partnerships, and safety issues.', examples: ['Tokenomics research', 'Scam/fraud monitoring', 'Partnership due-diligence'] },
+          { id: 'role-steward', title: 'Stewards', desc: 'Help run votes, review proofs of work and distribute fair payouts.', examples: ['Vote facilitation', 'Payout audits', 'Maintain contributor reputation records'] }
+        ];
+
+        function renderRoleList(){
+          const list = document.getElementById('role-list');
+          list.innerHTML = '';
+          roles.forEach((r, i) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.id = r.id;
+            btn.className = 'w-full text-left px-4 py-3 rounded-lg border-2 border-gray-200 hover:bg-bonk-yellow hover:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-bonk-orange';
+            btn.dataset.index = i;
+            btn.setAttribute('aria-controls','role-details');
+            btn.setAttribute('aria-expanded','false');
+            btn.innerHTML = `<div class="flex items-center justify-between"><span class="font-semibold">${r.title}</span><span class="text-xs text-gray-500">view</span></div>`;
+            btn.addEventListener('click', ()=> showRole(i));
+            btn.addEventListener('keydown', (e)=>{
+              if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); const next = list.children[Math.min(i+1, list.children.length-1)]; next && next.focus(); }
+              if (e.key === 'ArrowUp' || e.key === 'ArrowLeft')   { e.preventDefault(); const prev = list.children[Math.max(i-1,0)]; prev && prev.focus(); }
+              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showRole(i); }
+            });
+            list.appendChild(btn);
+          });
+        }
+
+        function showRole(index){
+          const r = roles[index];
+          const title = document.getElementById('role-title');
+          const desc = document.getElementById('role-desc');
+          const examples = document.getElementById('role-examples');
+          const list = document.getElementById('role-list');
+
+          title.textContent = r.title;
+          desc.textContent = r.desc;
+          examples.innerHTML = '';
+          r.examples.forEach(ex => {
+            const li = document.createElement('li'); li.textContent = ex; examples.appendChild(li);
+          });
+
+          // update button aria states and visual active
+          Array.from(list.children).forEach((b, i)=>{
+            const active = Number(b.dataset.index) === index;
+            b.setAttribute('aria-expanded', String(active));
+            b.classList.toggle('bg-bonk-orange', active);
+            b.classList.toggle('text-white', active);
+            b.querySelector('span') && (b.querySelector('span').style.color = active ? '#fff' : '');
+            if (active) b.focus();
+          });
+        }
+
+        // init
+        document.addEventListener('DOMContentLoaded', ()=>{
+          renderRoleList();
+          // auto-select first role for convenience
+          showRole(0);
+        });
+      })();
+    </script>
 </body>
 </html>
