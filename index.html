@@ -165,48 +165,132 @@
 </section>
 
 
-  <!-- About -->
+  <!-- What is Organic / Mission - interactive tabs -->
   <section id="about" class="py-16 bg-white">
     <div class="container mx-auto px-4">
-      <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-12 comic-shadow" data-aos="fade-down">Our Organic Story</h2>
+      <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-8 comic-shadow" data-aos="fade-down">What is "Organic" & Our Mission</h2>
 
-      <div class="max-w-4xl mx-auto" data-aos="fade-right">
-        <div class="flex flex-col md:flex-row items-center mb-12 bg-bonk-yellow bg-opacity-20 p-6 rounded-xl">
-          <div class="md:w-1/3 flex justify-center mb-6 md:mb-0">
-            <div class="bg-white rounded-full p-4 border-4 border-bonk-orange">
-              <i data-feather="zap" class="text-bonk-orange w-16 h-16"></i>
-            </div>
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-aos="fade-up">
+        <!-- Tabs column -->
+        <div class="md:col-span-1">
+          <div class="bg-bonk-yellow bg-opacity-20 p-6 rounded-xl border-4 border-comic-black">
+            <nav id="org-tabs" class="flex flex-col gap-2" aria-label="What is Organic Tabs">
+              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-what">What is Organic?</button>
+              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-why">Why are we different?</button>
+              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-mission">Our mission</button>
+              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-lines">Pick your one-liner</button>
+              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-how">How it works</button>
+              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-build">What we build</button>
+              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-roles">Roles you can take</button>
+              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-fair">Fair rewards</button>
+            </nav>
           </div>
-          <div class="md:w-2/3">
-            <h3 class="font-bold text-2xl text-bonk-orange mb-3">Born from Chaos</h3>
-            <p class="text-lg">Launched as a simple joke token, $ORG went through mislabeled wallet chaos, got caught in sniper crossfire, and rose from the ashes as a true community token.</p>
+
+          <div class="mt-6 p-4 rounded-md bg-white border-4 border-comic-black shadow-md">
+            <h4 class="font-bold mb-2">How to join</h4>
+            <ol class="text-sm list-decimal list-inside">
+              <li>Join Discord and introduce yourself</li>
+              <li>Claim small tasks or bounties</li>
+              <li>Deliver proof; get reviewed; receive payout</li>
+            </ol>
+            <a href="https://discord.gg/Npc5Gx6f2w" target="_blank" class="mt-3 inline-block bg-bonk-orange text-white px-4 py-2 rounded-full">Join Discord</a>
           </div>
         </div>
 
-        <div class="flex flex-col md:flex-row items-center mb-12 bg-bonk-yellow bg-opacity-20 p-6 rounded-xl" data-aos="fade-left">
-          <div class="md:w-2/3 md:order-1">
-            <h3 class="font-bold text-2xl text-bonk-orange mb-3">No Tricks, Just Growth</h3>
-            <p class="text-lg">We built our roots on complete transparency: no preloads, no hidden allocations, and no insider games. Just organic holders growing together.</p>
-          </div>
-          <div class="md:w-1/3 flex justify-center mb-6 md:mb-0">
-            <div class="bg-white rounded-full p-4 border-4 border-bonk-orange">
-              <i data-feather="sun" class="text-bonk-orange w-16 h-16"></i>
-            </div>
-          </div>
-        </div>
+        <!-- Content column -->
+        <div class="md:col-span-2">
+          <div id="org-tab-panels" class="space-y-6">
+            <article id="tab-what" class="org-panel bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">What is Organic?</h3>
+              <p class="text-lg">Organic is a decentralized community. No one owns it, anyone can join. We ship memes, tools, and real work together. Our token is the flag, but the product is the people. Builders, artists, growth hackers, translators, space hosts, mods, everyone has a lane. We keep the treasury public, fund tasks, and share revenue from anything we create.</p>
+            </article>
 
-        <div class="flex flex-col md:flex-row items-center bg-bonk-yellow bg-opacity-20 p-6 rounded-xl" data-aos="fade-right">
-          <div class="md:w-1/3 flex justify-center mb-6 md:mb-0">
-            <div class="bg-white rounded-full p-4 border-4 border-bonk-orange">
-              <i data-feather="users" class="text-bonk-orange w-16 h-16"></i>
-            </div>
-          </div>
-          <div class="md:w-2/3">
-            <h3 class="font-bold text-2xl text-bonk-orange mb-3">Community First</h3>
-            <p class="text-lg">You made this token grow organically. Decisions, memes, and the future - all powered by the $ORG community.</p>
+            <article id="tab-why" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Why are we different?</h3>
+              <ul class="list-disc pl-5 text-lg space-y-2">
+                <li>Real people, no paid bots, no fake metrics</li>
+                <li>Public treasury, public votes, public receipts for every payout</li>
+                <li>Roles for all skills, small tasks anyone can grab, bigger sprints we plan as a group</li>
+                <li>Tools and brand in one place, born on Bonk, open to collabs and new characters</li>
+                <li>Revenue goes back to contributors, split by proof of work and community rules</li>
+                <li>If our numbers look lower, it is because they are real, not botted</li>
+              </ul>
+            </article>
+
+            <article id="tab-mission" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Our mission</h3>
+              <p class="text-lg">Grow a community that builds for itself and for others. Fund small tasks every week, ship useful tools and good visuals, help good projects get a lift, and split the upside with the people who show up. The path is set by votes. The further we onboard new people, the further we go.</p>
+            </article>
+
+            <article id="tab-lines" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Pick your one-liner</h3>
+              <p class="text-lg mb-3">Use any of these on site, socials, or decks.</p>
+              <ul class="space-y-2">
+                <li class="bg-gray-50 p-3 rounded">Organic is a decentralized community studio that pays people for real work</li>
+                <li class="bg-gray-50 p-3 rounded">Organic is a community-owned meme brand where anyone can build, earn, and vote</li>
+                <li class="bg-gray-50 p-3 rounded">Organic is a micro-grants hub for culture and tools, funded by a public treasury</li>
+                <li class="bg-gray-50 p-3 rounded">Organic is a growth collective that turns community effort into shared revenue</li>
+              </ul>
+            </article>
+
+            <article id="tab-how" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">How it works</h3>
+              <ul class="list-disc pl-5 text-lg space-y-2">
+                <li>Treasury lives on chain, anyone can see it</li>
+                <li>Tasks and bounties are posted in public</li>
+                <li>People deliver, show proof, get reviewed</li>
+                <li>Payouts are sent, receipts are published</li>
+                <li>Monthly votes set next goals and budget</li>
+              </ul>
+            </article>
+
+            <article id="tab-build" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">What we build</h3>
+              <ul class="list-disc pl-5 text-lg space-y-2">
+                <li>Tools that creators and communities use, with revenue back to the treasury</li>
+                <li>Brand assets, art, memes, and persona packs anyone can remix</li>
+                <li>Collabs that boost other projects, with clear terms and shared upside</li>
+                <li>Education posts and safety notes so people avoid fake links and botted traps</li>
+              </ul>
+            </article>
+
+            <article id="tab-roles" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Roles you can take</h3>
+              <p class="text-lg">Developers, 2D and 3D artists, video editors, meme makers, growth hackers, translators, community managers, space hosts, researchers, stewards who help run votes and payouts.</p>
+            </article>
+
+            <article id="tab-fair" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Fair rewards</h3>
+              <p class="text-lg">Every payout ties to a task, a score, and a wallet. Reputation and staking can boost your voice and your reward cap. No yield promises, only work that gets paid.</p>
+            </article>
           </div>
         </div>
       </div>
+
+      <script>
+        // Lightweight tab behavior: click to show, arrow keys to navigate
+        (function(){
+          const tabs = Array.from(document.querySelectorAll('.org-tab'));
+          const panels = Array.from(document.querySelectorAll('.org-panel'));
+          if (!tabs.length) return;
+
+          function activate(targetId){
+            panels.forEach(p=> p.id === targetId ? p.classList.remove('hidden') : p.classList.add('hidden'));
+            tabs.forEach(t=> t.dataset.target === targetId ? t.classList.add('bg-bonk-orange','text-white') : t.classList.remove('bg-bonk-orange','text-white'));
+          }
+
+          tabs.forEach((t,i)=>{
+            t.addEventListener('click', ()=> activate(t.dataset.target));
+            t.addEventListener('keydown', (e)=>{
+              if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); tabs[(i+1)%tabs.length].focus(); }
+              if (e.key === 'ArrowUp' || e.key === 'ArrowLeft')  { e.preventDefault(); tabs[(i-1+tabs.length)%tabs.length].focus(); }
+            });
+          });
+
+          // Activate first tab by default
+          activate(tabs[0].dataset.target);
+        })();
+      </script>
     </div>
   </section>
 
