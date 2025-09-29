@@ -170,11 +170,11 @@
     <div class="container mx-auto px-4">
       <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-8 comic-shadow" data-aos="fade-down">What is "Organic" & Our Mission</h2>
 
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-aos="fade-up">
+  <div class="max-w-6xl mx-auto md:flex gap-8 items-stretch" data-aos="fade-up">
         <!-- Tabs column -->
-        <div class="md:col-span-1">
-          <div class="bg-bonk-yellow bg-opacity-20 p-6 rounded-xl border-4 border-comic-black">
-            <nav id="org-tabs" class="flex flex-col gap-2" aria-label="What is Organic Tabs">
+        <div class="md:w-1/3 flex flex-col">
+          <div class="bg-bonk-yellow bg-opacity-20 p-6 rounded-xl border-4 border-comic-black h-full flex flex-col">
+            <nav id="org-tabs" class="flex flex-col gap-2 flex-1 overflow-auto" aria-label="What is Organic Tabs">
               <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-what">What is Organic?</button>
               <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-why">Why are we different?</button>
               <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-mission">Our mission</button>
@@ -198,14 +198,14 @@
         </div>
 
         <!-- Content column -->
-        <div class="md:col-span-2">
-          <div id="org-tab-panels" class="space-y-6">
-            <article id="tab-what" class="org-panel bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+        <div class="md:w-2/3 flex flex-col">
+          <div id="org-tab-panels" class="space-y-6 flex-1 overflow-auto">
+            <article id="tab-what" class="org-panel bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
               <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">What is Organic?</h3>
               <p class="text-lg">Organic is a decentralized community. No one owns it, anyone can join. We ship memes, tools, and real work together. Our token is the flag, but the product is the people. Builders, artists, growth hackers, translators, space hosts, mods, everyone has a lane. We keep the treasury public, fund tasks, and share revenue from anything we create.</p>
             </article>
 
-            <article id="tab-why" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+            <article id="tab-why" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
               <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Why are we different?</h3>
               <ul class="list-disc pl-5 text-lg space-y-2">
                 <li>Real people, no paid bots, no fake metrics</li>
@@ -217,12 +217,12 @@
               </ul>
             </article>
 
-            <article id="tab-mission" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+            <article id="tab-mission" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
               <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Our mission</h3>
               <p class="text-lg">Grow a community that builds for itself and for others. Fund small tasks every week, ship useful tools and good visuals, help good projects get a lift, and split the upside with the people who show up. The path is set by votes. The further we onboard new people, the further we go.</p>
             </article>
 
-            <article id="tab-lines" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+            <article id="tab-lines" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
               <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Pick your one-liner</h3>
               <p class="text-lg mb-3">Use any of these on site, socials, or decks.</p>
               <ul class="space-y-2">
@@ -233,7 +233,7 @@
               </ul>
             </article>
 
-            <article id="tab-how" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+            <article id="tab-how" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
               <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">How it works</h3>
               <ul class="list-disc pl-5 text-lg space-y-2">
                 <li>Treasury lives on chain, anyone can see it</li>
@@ -244,7 +244,7 @@
               </ul>
             </article>
 
-            <article id="tab-build" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+            <article id="tab-build" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
               <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">What we build</h3>
               <ul class="list-disc pl-5 text-lg space-y-2">
                 <li>Tools that creators and communities use, with revenue back to the treasury</li>
@@ -254,7 +254,7 @@
               </ul>
             </article>
 
-            <article id="tab-roles" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+            <article id="tab-roles" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
               <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Roles you can take</h3>
               <p class="text-lg mb-4">Developers, 2D and 3D artists, video editors, meme makers, growth hackers, translators, community managers, space hosts, researchers, stewards who help run votes and payouts.</p>
 
@@ -267,14 +267,16 @@
                 </div>
 
                 <div class="md:col-span-1">
-                  <div id="role-list" class="space-y-2">
-                    <!-- Buttons injected by script for consistency -->
+                  <div id="role-list-wrapper" class="h-full flex flex-col">
+                    <div id="role-list" class="space-y-2 overflow-y-auto max-h-[420px] md:max-h-[520px] p-1">
+                      <!-- Buttons injected by script for consistency -->
+                    </div>
                   </div>
                 </div>
               </div>
             </article>
 
-            <article id="tab-fair" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md">
+            <article id="tab-fair" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
               <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Fair rewards</h3>
               <p class="text-lg">Every payout ties to a task, a score, and a wallet. Reputation and staking can boost your voice and your reward cap. No yield promises, only work that gets paid.</p>
             </article>
@@ -289,21 +291,44 @@
           const panels = Array.from(document.querySelectorAll('.org-panel'));
           if (!tabs.length) return;
 
+          // Compute a baseline height from the first (What is Organic) panel and lock all panels to it.
+          function applyFixedPanelHeight(){
+            try {
+              const baselinePanel = document.getElementById(tabs[0].dataset.target) || panels[0];
+              const h = baselinePanel ? baselinePanel.offsetHeight : 0;
+              panels.forEach(p=>{
+                p.style.minHeight = h + 'px';
+                p.style.maxHeight = h + 'px';
+                p.style.overflow = 'auto';
+              });
+            } catch(e) { /* ignore */ }
+          }
+
           function activate(targetId){
             panels.forEach(p=> p.id === targetId ? p.classList.remove('hidden') : p.classList.add('hidden'));
             tabs.forEach(t=> t.dataset.target === targetId ? t.classList.add('bg-bonk-orange','text-white') : t.classList.remove('bg-bonk-orange','text-white'));
           }
 
           tabs.forEach((t,i)=>{
-            t.addEventListener('click', ()=> activate(t.dataset.target));
+            t.addEventListener('click', ()=> { activate(t.dataset.target); });
             t.addEventListener('keydown', (e)=>{
               if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); tabs[(i+1)%tabs.length].focus(); }
               if (e.key === 'ArrowUp' || e.key === 'ArrowLeft')  { e.preventDefault(); tabs[(i-1+tabs.length)%tabs.length].focus(); }
+              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(t.dataset.target); }
             });
           });
 
-          // Activate first tab by default
+          // Activate first tab by default and apply fixed sizing
           activate(tabs[0].dataset.target);
+          // apply fixed height after layout stabilizes
+          setTimeout(applyFixedPanelHeight, 60);
+
+          // Recalculate baseline height on window resize (keep fixed behavior)
+          let resizeTimer;
+          window.addEventListener('resize', ()=>{
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(applyFixedPanelHeight, 80);
+          });
         })();
       </script>
     </div>
