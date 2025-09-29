@@ -27,10 +27,46 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://unpkg.com/feather-icons"></script>
-
   <!-- Custom CSS for CA pill + breathing + refined shadows -->
   <style>
-    :root{
+    /* Mouse trail styles */
+    .mouse-trail {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: rgba(255, 122, 0, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: screen;
+      transform: translate(-50%, -50%);
+      animation: trailFade 1.5s forwards;
+    }
+
+    @keyframes trailFade {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    }
+
+    .mouse-follower {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(circle, rgba(255,122,0,0.8) 0%, rgba(255,122,0,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      mix-blend-mode: screen;
+      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+    }
+
+    .mouse-follower.active {
+      width: 48px;
+      height: 48px;
+      background: radial-gradient(circle, rgba(255,122,0,0.9) 0%, rgba(255,122,0,0) 70%);
+    }
+:root{
       --comic-black:#111;
       --site-orange:#FF7A00; /* same as bonk-orange */
     }
@@ -91,9 +127,14 @@
         <img src="assets/Logo.png" alt="Organic Logo" class="h-12 md:h-14 lg:h-16 w-auto select-none -ml-2 md:-ml-3 breathe will-change-transform" draggable="false">
       </a>
     </div>
+    <!-- Mobile menu button -->
+    <button id="mobile-menu-button" class="md:hidden bg-bonk-yellow rounded-full p-2">
+      <i id="mobile-menu-icon" data-feather="menu" class="text-bonk-orange"></i>
+    </button>
 
+    <!-- Desktop menu -->
     <div class="hidden md:flex space-x-8">
-      <a href="index.html#about"   class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">History</a>
+<a href="index.html#about"   class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">History</a>
       <a href="lore.html"          class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Lore</a>
       <a href="index.html#buy"     class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">How to Buy</a>
       <a href="index.html#memes"   class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Memes</a>
@@ -103,8 +144,22 @@
       <a href="index.html#faq"     class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">FAQ</a>
     </div>
 
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 right-0 bg-bonk-orange bg-opacity-95 py-4 px-4 z-50">
+      <div class="flex flex-col space-y-4">
+        <a href="index.html#about" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">History</a>
+        <a href="lore.html" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Lore</a>
+        <a href="index.html#buy" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">How to Buy</a>
+        <a href="index.html#memes" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Memes</a>
+        <a href="memefest.html" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Meme Fest</a>
+        <a href="contact.html" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Contact</a>
+        <a href="index.html#roadmap" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">Roadmap</a>
+        <a href="index.html#faq" class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:text-bonk-yellow">FAQ</a>
+      </div>
+    </div>
+
     <div class="flex space-x-4">
-      <a href="https://x.com/Organic_bonk" target="_blank" rel="noopener noreferrer" class="bg-bonk-yellow rounded-full p-2 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300">
+<a href="https://x.com/Organic_bonk" target="_blank" rel="noopener noreferrer" class="bg-bonk-yellow rounded-full p-2 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300">
         <i data-feather="twitter" class="text-bonk-orange hover:rotate-12 transition-transform duration-300"></i>
       </a>
       <a href="https://discord.gg/Npc5Gx6f2w" target="_blank" rel="noopener noreferrer" class="bg-bonk-yellow rounded-full p-2 hover:scale-110 transition-all duration-300 hover:shadow-lg hover:bg-yellow-300">
@@ -168,21 +223,21 @@
   <!-- What is Organic / Mission - interactive tabs -->
   <section id="about" class="py-16 bg-white">
     <div class="container mx-auto px-4">
-      <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-8 comic-shadow" data-aos="fade-down">What is "Organic" & Our Mission</h2>
+      <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-12 comic-shadow" data-aos="fade-down">What is "Organic" & Our Mission</h2>
 
-  <div class="max-w-6xl mx-auto md:flex gap-8 items-stretch" data-aos="fade-up">
+  <div class="max-w-6xl mx-auto md:flex gap-8 items-start" data-aos="fade-up">
         <!-- Tabs column -->
-        <div class="md:w-1/3 flex flex-col">
-          <div class="bg-bonk-yellow bg-opacity-20 p-6 rounded-xl border-4 border-comic-black h-full flex flex-col">
-            <nav id="org-tabs" class="flex flex-col gap-2 flex-1 overflow-auto" aria-label="What is Organic Tabs">
-              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-what">What is Organic?</button>
-              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-why">Why are we different?</button>
-              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-mission">Our mission</button>
-              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-lines">Pick your one-liner</button>
-              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-how">How it works</button>
-              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-build">What we build</button>
-              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-roles">Roles you can take</button>
-              <button class="org-tab site-copy-button text-left px-4 py-3 font-bold" data-target="tab-fair">Fair rewards</button>
+        <div id="org-left-col" class="md:w-1/3 flex flex-col">
+          <div class="bg-bonk-yellow bg-opacity-20 p-6 rounded-xl border-4 border-comic-black flex flex-col">
+            <nav id="org-tabs" class="flex flex-col gap-2 py-1" role="tablist" aria-orientation="vertical" aria-label="What is Organic Tabs">
+              <button id="tab-what-btn" class="org-tab site-copy-button text-left px-4 py-3 font-bold" role="tab" aria-controls="tab-what" data-target="tab-what">What is Organic?</button>
+              <button id="tab-why-btn" class="org-tab site-copy-button text-left px-4 py-3 font-bold" role="tab" aria-controls="tab-why" data-target="tab-why">Why are we different?</button>
+              <button id="tab-mission-btn" class="org-tab site-copy-button text-left px-4 py-3 font-bold" role="tab" aria-controls="tab-mission" data-target="tab-mission">Our mission</button>
+              <button id="tab-lines-btn" class="org-tab site-copy-button text-left px-4 py-3 font-bold" role="tab" aria-controls="tab-lines" data-target="tab-lines">Pick your one-liner</button>
+              <button id="tab-how-btn" class="org-tab site-copy-button text-left px-4 py-3 font-bold" role="tab" aria-controls="tab-how" data-target="tab-how">How it works</button>
+              <button id="tab-build-btn" class="org-tab site-copy-button text-left px-4 py-3 font-bold" role="tab" aria-controls="tab-build" data-target="tab-build">What we build</button>
+              <button id="tab-roles-btn" class="org-tab site-copy-button text-left px-4 py-3 font-bold" role="tab" aria-controls="tab-roles" data-target="tab-roles">Roles you can take</button>
+              <button id="tab-fair-btn" class="org-tab site-copy-button text-left px-4 py-3 font-bold" role="tab" aria-controls="tab-fair" data-target="tab-fair">Fair rewards</button>
             </nav>
           </div>
 
@@ -197,16 +252,16 @@
           </div>
         </div>
 
-        <!-- Content column -->
-        <div class="md:w-2/3 flex flex-col">
+  <!-- Content column -->
+  <div id="org-right-col" class="md:w-2/3 flex flex-col">
           <div id="org-tab-panels" class="space-y-6 flex-1 overflow-auto">
-            <article id="tab-what" class="org-panel bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
-              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">What is Organic?</h3>
+            <article id="tab-what" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md overflow-auto" role="tabpanel" aria-labelledby="tab-what-btn" aria-hidden="true">
+<h3 tabindex="-1" class="font-cartoon text-2xl text-bonk-orange mb-4">What is Organic?</h3>
+              <ul class="list-disc pl-5 text-lg space-y-2"></ul>
               <p class="text-lg">Organic is a decentralized community. No one owns it, anyone can join. We ship memes, tools, and real work together. Our token is the flag, but the product is the people. Builders, artists, growth hackers, translators, space hosts, mods, everyone has a lane. We keep the treasury public, fund tasks, and share revenue from anything we create.</p>
             </article>
-
-            <article id="tab-why" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
-              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Why are we different?</h3>
+            <article id="tab-why" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md overflow-auto" role="tabpanel" aria-labelledby="tab-why-btn" aria-hidden="true">
+<h3 tabindex="-1" class="font-cartoon text-2xl text-bonk-orange mb-4">Why are we different?</h3>
               <ul class="list-disc pl-5 text-lg space-y-2">
                 <li>Real people, no paid bots, no fake metrics</li>
                 <li>Public treasury, public votes, public receipts for every payout</li>
@@ -216,14 +271,12 @@
                 <li>If our numbers look lower, it is because they are real, not botted</li>
               </ul>
             </article>
-
-            <article id="tab-mission" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
-              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Our mission</h3>
+            <article id="tab-mission" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md overflow-auto" role="tabpanel" aria-labelledby="tab-mission-btn" aria-hidden="true">
+              <h3 tabindex="-1" class="font-cartoon text-2xl text-bonk-orange mb-4">Our mission</h3>
               <p class="text-lg">Grow a community that builds for itself and for others. Fund small tasks every week, ship useful tools and good visuals, help good projects get a lift, and split the upside with the people who show up. The path is set by votes. The further we onboard new people, the further we go.</p>
             </article>
-
-            <article id="tab-lines" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
-              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Pick your one-liner</h3>
+            <article id="tab-lines" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md overflow-auto" role="tabpanel" aria-labelledby="tab-lines-btn" aria-hidden="true">
+<h3 tabindex="-1" class="font-cartoon text-2xl text-bonk-orange mb-4">Pick your one-liner</h3>
               <p class="text-lg mb-3">Use any of these on site, socials, or decks.</p>
               <ul class="space-y-2">
                 <li class="bg-gray-50 p-3 rounded">Organic is a decentralized community studio that pays people for real work</li>
@@ -232,9 +285,8 @@
                 <li class="bg-gray-50 p-3 rounded">Organic is a growth collective that turns community effort into shared revenue</li>
               </ul>
             </article>
-
-            <article id="tab-how" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
-              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">How it works</h3>
+            <article id="tab-how" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md overflow-auto" role="tabpanel" aria-labelledby="tab-how-btn" aria-hidden="true">
+<h3 tabindex="-1" class="font-cartoon text-2xl text-bonk-orange mb-4">How it works</h3>
               <ul class="list-disc pl-5 text-lg space-y-2">
                 <li>Treasury lives on chain, anyone can see it</li>
                 <li>Tasks and bounties are posted in public</li>
@@ -243,9 +295,8 @@
                 <li>Monthly votes set next goals and budget</li>
               </ul>
             </article>
-
-            <article id="tab-build" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
-              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">What we build</h3>
+            <article id="tab-build" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md overflow-auto" role="tabpanel" aria-labelledby="tab-build-btn" aria-hidden="true">
+<h3 tabindex="-1" class="font-cartoon text-2xl text-bonk-orange mb-4">What we build</h3>
               <ul class="list-disc pl-5 text-lg space-y-2">
                 <li>Tools that creators and communities use, with revenue back to the treasury</li>
                 <li>Brand assets, art, memes, and persona packs anyone can remix</li>
@@ -253,9 +304,8 @@
                 <li>Education posts and safety notes so people avoid fake links and botted traps</li>
               </ul>
             </article>
-
-            <article id="tab-roles" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
-              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Roles you can take</h3>
+            <article id="tab-roles" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md overflow-auto" role="tabpanel" aria-labelledby="tab-roles-btn" aria-hidden="true">
+<h3 tabindex="-1" class="font-cartoon text-2xl text-bonk-orange mb-4">Roles you can take</h3>
               <p class="text-lg mb-4">Developers, 2D and 3D artists, video editors, meme makers, growth hackers, translators, community managers, space hosts, researchers, stewards who help run votes and payouts.</p>
 
               <!-- Roles layout: left = details, right = button list -->
@@ -275,9 +325,8 @@
                 </div>
               </div>
             </article>
-
-            <article id="tab-fair" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md h-full overflow-auto">
-              <h3 class="font-cartoon text-2xl text-bonk-orange mb-3">Fair rewards</h3>
+            <article id="tab-fair" class="org-panel hidden bg-white p-6 rounded-xl border-4 border-comic-black shadow-md overflow-auto" role="tabpanel" aria-labelledby="tab-fair-btn" aria-hidden="true">
+<h3 tabindex="-1" class="font-cartoon text-2xl text-bonk-orange mb-4">Fair rewards</h3>
               <p class="text-lg">Every payout ties to a task, a score, and a wallet. Reputation and staking can boost your voice and your reward cap. No yield promises, only work that gets paid.</p>
             </article>
           </div>
@@ -285,57 +334,134 @@
       </div>
 
       <script>
-        // Lightweight tab behavior: click to show, arrow keys to navigate
+        // Accessible vertical tabs with balanced layout and internal scrolling
         (function(){
           const tabs = Array.from(document.querySelectorAll('.org-tab'));
           const panels = Array.from(document.querySelectorAll('.org-panel'));
-          if (!tabs.length) return;
+          const tablist = document.getElementById('org-tabs');
+          const orgTabPanels = document.getElementById('org-tab-panels');
+          if (!tabs.length || !panels.length || !tablist) return;
 
-          // Compute a baseline height from the first (What is Organic) panel and lock all panels to it.
-          function applyFixedPanelHeight(){
-            try {
-              const baselinePanel = document.getElementById(tabs[0].dataset.target) || panels[0];
-              const h = baselinePanel ? baselinePanel.offsetHeight : 0;
+          // Create an active indicator element (visual stripe beside active tab)
+          const indicator = document.createElement('div');
+          indicator.setAttribute('aria-hidden','true');
+          indicator.style.position = 'absolute';
+          indicator.style.left = '0';
+          indicator.style.width = '6px';
+          indicator.style.background = 'var(--site-orange)';
+          indicator.style.borderRadius = '3px';
+          indicator.style.transition = 'top 220ms cubic-bezier(.2,.9,.2,1), height 220ms ease';
+          // Ensure the tablist has relative positioning for indicator placement
+          tablist.style.position = tablist.style.position || 'relative';
+          tablist.appendChild(indicator);
+
+          function setIndicatorFor(index){
+            const btn = tabs[index];
+            if (!btn) return;
+            const rect = btn.getBoundingClientRect();
+            const parentRect = tablist.getBoundingClientRect();
+            const top = btn.offsetTop;
+            indicator.style.top = top + 'px';
+            indicator.style.height = btn.offsetHeight + 'px';
+          }
+
+          function activate(index){
+            tabs.forEach((t,i)=>{
+              const active = i === index;
+              t.setAttribute('aria-selected', active ? 'true' : 'false');
+              t.tabIndex = active ? 0 : -1;
+              t.classList.toggle('bg-bonk-orange', active);
+              t.classList.toggle('text-white', active);
+            });
+            panels.forEach((p,i)=>{
+              const active = i === index;
+              p.classList.toggle('hidden', !active);
+              p.setAttribute('aria-hidden', !active);
+              if (active){
+                // focus heading for screen readers
+                const h = p.querySelector('h3'); if (h) h.focus({ preventScroll: true });
+              }
+            });
+            setIndicatorFor(index);
+          }
+
+          // Equalize tab button heights (desktop) so the left column feels balanced
+          function equalizeTabHeights(){
+            // reset first
+            tabs.forEach(t=> t.style.height = '');
+            if (window.matchMedia && !window.matchMedia('(min-width:768px)').matches) return;
+            // compute available space inside the left column for tab buttons
+            const left = document.getElementById('org-left-col');
+            if (!left) return;
+            // find the tab container inner height
+            const tabBox = tablist.getBoundingClientRect();
+            const buttonsHeight = tabs.reduce((acc, t)=> acc + t.getBoundingClientRect().height, 0);
+            // if buttons already comfortable, don't force; otherwise make them equal height
+            const avg = Math.max(44, Math.floor(tabBox.height / Math.max(1, tabs.length))); // 44px min
+            tabs.forEach(t => t.style.height = avg + 'px');
+            // refresh indicator after height changes
+            const activeIndex = tabs.findIndex(tb => tb.getAttribute('aria-selected') === 'true');
+            setIndicatorFor(activeIndex >= 0 ? activeIndex : 0);
+          }
+
+          // Balanced layout: measure left column and apply its height to the right column and panels
+          function applyBalancedLayout(){
+            try{
+              // clear first
+              const rightCol = document.getElementById('org-right-col');
+              if (rightCol) { rightCol.style.minHeight = ''; rightCol.style.maxHeight = ''; rightCol.style.overflow = ''; }
+              panels.forEach(p=>{ p.style.maxHeight = ''; p.style.overflow = ''; });
+              if (!window.matchMedia || !window.matchMedia('(min-width:768px)').matches) return;
+
+              const left = document.getElementById('org-left-col');
+              if (!left || !rightCol) return;
+              const rect = left.getBoundingClientRect();
+              const baseline = Math.ceil(rect.height + 8);
+
+              // apply to right column but allow internal panel scrolling so content is reachable
+              rightCol.style.minHeight = baseline + 'px';
+              rightCol.style.maxHeight = baseline + 'px';
+              rightCol.style.overflow = 'hidden';
+
               panels.forEach(p=>{
-                p.style.minHeight = h + 'px';
-                p.style.maxHeight = h + 'px';
+                p.style.maxHeight = (baseline - 24) + 'px'; // leave padding room
                 p.style.overflow = 'auto';
               });
-            } catch(e) { /* ignore */ }
+              if (orgTabPanels) { orgTabPanels.style.height = baseline + 'px'; orgTabPanels.style.overflow = 'hidden'; }
+            }catch(e){/* ignore */}
           }
 
-          function activate(targetId){
-            panels.forEach(p=> p.id === targetId ? p.classList.remove('hidden') : p.classList.add('hidden'));
-            tabs.forEach(t=> t.dataset.target === targetId ? t.classList.add('bg-bonk-orange','text-white') : t.classList.remove('bg-bonk-orange','text-white'));
-          }
-
-          tabs.forEach((t,i)=>{
-            t.addEventListener('click', ()=> { activate(t.dataset.target); });
+          // wiring: clicks and keyboard navigation
+          tabs.forEach((t, i) => {
+            t.setAttribute('role','tab');
+            t.setAttribute('aria-controls', panels[i]?.id || '');
+            t.tabIndex = i === 0 ? 0 : -1;
+            t.addEventListener('click', ()=> activate(i));
             t.addEventListener('keydown', (e)=>{
-              if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); tabs[(i+1)%tabs.length].focus(); }
-              if (e.key === 'ArrowUp' || e.key === 'ArrowLeft')  { e.preventDefault(); tabs[(i-1+tabs.length)%tabs.length].focus(); }
-              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(t.dataset.target); }
+              if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); const ni = (i+1) % tabs.length; tabs[ni].focus(); }
+              if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); const pi = (i-1+tabs.length)%tabs.length; tabs[pi].focus(); }
+              if (e.key === 'Home') { e.preventDefault(); tabs[0].focus(); }
+              if (e.key === 'End') { e.preventDefault(); tabs[tabs.length-1].focus(); }
+              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(i); }
             });
           });
 
-          // Activate first tab by default and apply fixed sizing
-          activate(tabs[0].dataset.target);
-          // apply fixed height after layout stabilizes
-          setTimeout(applyFixedPanelHeight, 60);
+          // Initialize
+          activate(0);
+          // allow layout to settle then apply sizing
+          setTimeout(()=>{ applyBalancedLayout(); equalizeTabHeights(); }, 160);
+          window.addEventListener('load', ()=>{ requestAnimationFrame(()=>{ applyBalancedLayout(); equalizeTabHeights(); }); });
 
-          // Recalculate baseline height on window resize (keep fixed behavior)
-          let resizeTimer;
-          window.addEventListener('resize', ()=>{
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(applyFixedPanelHeight, 80);
-          });
+          // debounce resize
+          let rTimer;
+          window.addEventListener('resize', ()=>{ clearTimeout(rTimer); rTimer = setTimeout(()=>{ applyBalancedLayout(); equalizeTabHeights(); }, 120); });
         })();
       </script>
     </div>
   </section>
 
   <!-- Tweets -->
-  <section class="py-16 bg-gray-100">
+  <section class="py-16 bg-gray-100 same-height">
     <div class="container mx-auto px-4">
       <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-12 comic-shadow" data-aos="fade-down">Fresh From Twitter</h2>
 
@@ -362,7 +488,7 @@
   </section>
 
   <!-- How to Buy -->
-  <section id="buy" class="py-16 bg-white">
+  <section id="buy" class="py-16 bg-white same-height">
     <div class="container mx-auto px-4">
       <h2 class="font-cartoon text-4xl text-center text-bonk-orange mb-12 comic-shadow" data-aos="fade-down">HOW TO BUY</h2>
 
@@ -414,7 +540,7 @@
   </section>
 
   <!-- Chart -->
-  <section class="site-section shadow-lg mb-6 sm:mb-10 border-4 border-comic-black rounded-xl relative py-12 px-4 sm:py-16 sm:px-6 md:py-20" data-aos="fade-up">
+  <section class="site-section shadow-lg mb-6 sm:mb-10 border-4 border-comic-black rounded-xl relative py-12 px-4 sm:py-16 sm:px-6 md:py-20 same-height" data-aos="fade-up">
     <div class="absolute inset-0 bg-halftone-dots opacity-10 pointer-events-none"></div>
     <div class="relative z-10 max-w-6xl mx-auto">
       <h2 class="font-cartoon text-4xl sm:text-5xl mb-12 text-center text-bonk-orange comic-shadow">FOLLOW OUR CHART</h2>
@@ -425,7 +551,7 @@
   </section>
 
   <!-- Memes -->
-  <section id="memes" class="py-16 bg-white">
+  <section id="memes" class="py-16 bg-white same-height">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
         <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-8 comic-shadow" data-aos="fade-down">Organic Memes & Culture</h2>
@@ -681,7 +807,7 @@
   </section>
 
   <!-- Testimonials -->
-  <section class="py-16 bg-bonk-orange bg-opacity-10">
+  <section class="py-16 bg-bonk-orange bg-opacity-10 same-height">
     <div class="container mx-auto px-4">
       <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-12 comic-shadow" data-aos="fade-down">
         Real Organic Voices
@@ -751,7 +877,7 @@
   </section>
 
   <!-- Roadmap & Lore -->
-  <section id="roadmap" class="py-16 bg-white">
+  <section id="roadmap" class="py-16 bg-white same-height">
     <div class="container mx-auto px-4">
       <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-3 comic-shadow" data-aos="fade-down">Our Organic Journey</h2>
       <p class="text-center text-sm text-gray-600 mb-6">This roadmap will be better aligned and is proposed here for discussion — final changes go through the community first.</p>
@@ -814,7 +940,7 @@
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="py-16 bg-gray-100">
+  <section id="faq" class="py-16 bg-gray-100 same-height">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
         <h2 class="font-cartoon text-4xl md:text-4xl text-center text-bonk-orange mb-12 comic-shadow" data-aos="fade-down">Organic Questions</h2>
@@ -884,15 +1010,72 @@
       </div>
     </div>
   </footer>
-
   <!-- Scripts -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      AOS.init({ duration:800, offset:100, easing:'ease-out-back', once:true });
+      // Mouse trail effect
+      document.addEventListener('DOMContentLoaded', () => {
+        // Create mouse follower element
+        const follower = document.createElement('div');
+        follower.className = 'mouse-follower';
+        document.body.appendChild(follower);
+
+        // Track mouse movement for follower
+        document.addEventListener('mousemove', (e) => {
+          follower.style.left = e.clientX + 'px';
+          follower.style.top = e.clientY + 'px';
+
+          // Create trail dots
+          const trail = document.createElement('div');
+          trail.className = 'mouse-trail';
+          trail.style.left = e.clientX + 'px';
+          trail.style.top = e.clientY + 'px';
+          document.body.appendChild(trail);
+
+          // Remove trail dots after animation completes
+          setTimeout(() => {
+            trail.remove();
+          }, 1500);
+        });
+
+        // Add active class on clickable elements
+        document.addEventListener('mouseover', (e) => {
+          const target = e.target;
+          if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.hasAttribute('data-clickable')) {
+            follower.classList.add('active');
+          }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+          const target = e.target;
+          if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.hasAttribute('data-clickable')) {
+            follower.classList.remove('active');
+          }
+        });
+AOS.init({ duration:800, offset:100, easing:'ease-out-back', once:true });
       feather.replace();
 
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+      
+      mobileMenuButton.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('hidden');
+        mobileMenuIcon.setAttribute('data-feather', isOpen ? 'menu' : 'x');
+        feather.replace();
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuIcon.setAttribute('data-feather', 'menu');
+          feather.replace();
+        });
+      });
+
       // Twitter widgets
-      const tw = document.createElement('script');
+const tw = document.createElement('script');
       tw.src = 'https://platform.twitter.com/widgets.js';
       tw.async = true;
       document.body.appendChild(tw);
@@ -939,6 +1122,75 @@
         });
       });
     });
+  </script>
+  
+  <!-- Cursor smoke effect: soft orange smoke that follows the cursor and puffs on click -->
+  <style>
+    /* Particle base */
+    .cursor-smoke-particle{
+      position:fixed; left:0; top:0; pointer-events:none; z-index:9998; mix-blend-mode:screen;
+  width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 30% 30%, rgba(255,122,0,0.98) 0%, rgba(204,80,0,0.95) 34%, rgba(153,45,0,0.45) 65%, rgba(153,45,0,0) 100%);
+      transform:translate(-50%,-50%) scale(1); opacity:0.9; will-change:transform,opacity;
+      transition:transform 700ms cubic-bezier(.2,.9,.2,1), opacity 700ms linear;
+    }
+    @media (prefers-reduced-motion:reduce){ .cursor-smoke-particle{ transition:none !important; animation:none !important; } }
+  </style>
+
+  <script>
+    (function(){
+      if (typeof window === 'undefined') return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let lastX = 0, lastY = 0, spawnThrottle = 0;
+
+      function spawnParticle(x,y, size=14, life=700, velocity = {x: (Math.random()-0.5)*0.6, y: -0.8 - Math.random()*0.6}){
+        const p = document.createElement('div');
+        p.className = 'cursor-smoke-particle';
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        p.style.opacity = '0.95';
+        p.style.transform = 'translate(-50%,-50%) scale(0.9)';
+        document.body.appendChild(p);
+
+        // force a reflow so transition runs
+        void p.offsetWidth;
+
+        requestAnimationFrame(()=>{
+          p.style.transform = `translate(${velocity.x * 36}px, ${velocity.y * 36}px) scale(${1.6 + Math.random()*0.6})`;
+          p.style.opacity = '0';
+        });
+
+        setTimeout(()=>{ p.remove(); }, life + 80);
+      }
+
+      // follow mouse and spawn small particles along the path (throttled)
+      window.addEventListener('mousemove', (e)=>{
+        const now = Date.now();
+        if (now - spawnThrottle < 24) return; // throttle spawn rate
+        spawnThrottle = now;
+        const x = e.clientX, y = e.clientY;
+        // spawn a small particle slightly behind cursor
+        spawnParticle(x - 6 + (Math.random()*8-4), y - 6 + (Math.random()*8-4), 12, 700, {x: (Math.random()-0.5)*0.8, y: -0.6 - Math.random()*0.4});
+        lastX = x; lastY = y;
+      }, { passive: true });
+
+      // on mousedown spawn a larger puff
+      window.addEventListener('pointerdown', (e)=>{
+        const x = e.clientX, y = e.clientY;
+        for(let i=0;i<6;i++){
+          setTimeout(()=>{
+            spawnParticle(x + (Math.random()*24-12), y + (Math.random()*10-6), 18 + Math.random()*12, 900 + Math.random()*300, {x: (Math.random()-0.5)*1.6, y: -1.2 - Math.random()*0.8});
+          }, i*40);
+        }
+      }, { passive: true });
+
+      // on scroll or blur, remove lingering particles quickly
+      function clearParticles(){ document.querySelectorAll('.cursor-smoke-particle').forEach(n=>n.remove()); }
+      window.addEventListener('scroll', clearParticles, { passive: true });
+      window.addEventListener('blur', clearParticles);
+    })();
   </script>
     <script>
       // Roles data and UI wiring for the Roles tab
